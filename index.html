@@ -1,26 +1,31 @@
 <html>
-  <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- http://jeromeetienne.github.io/jquery-qrcode/ -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-    
-    <title>Beacon</title>
-  </head>
-  <body>
-    <div id="qrcode"></div>
-  
-    <script>
-      navigator.geolocation.getCurrentPosition(() => {});
-      
-      function getCurrentTime() {
-        return Date.now();
-      }
-      
-      window.setInterval(() => {
-        $('#qrcode').qrcode(getCurrentTime());
-      }, 1000);
-      
-      
-    </script>
-  </body>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- http://jeromeetienne.github.io/jquery-qrcode/ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+  <title>Beacon</title>
+</head>
+<body>
+<div id="qrcode"></div>
+
+<script>
+// Force the prompt
+navigator.geolocation.getCurrentPosition(() => {});
+
+function updateQR() {
+  navigator.geolocation.getCurrentPosition((position) => {
+    let payload = {};
+    payload.datetime = Date().toString();
+    payload.location = { lat: position.coords.latitude, lon: position.coords.longitude };
+
+    $('#qrcode').qrcode(JSON.stringify(payload));
+
+    setTimeout(() => updateQR(), 500);
+  });
+}
+
+updateQR();
+</script>
+</body>
 </html>
