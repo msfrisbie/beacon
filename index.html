@@ -8,6 +8,7 @@
 </head>
 <body>
 <div id="qrcode"></div>
+<pre><code id="json"></code></pre>
 
 <script>
 // Force the prompt
@@ -20,6 +21,7 @@ function updateQR() {
     payload.location = { lat: position.coords.latitude, lon: position.coords.longitude };
 
     $('#qrcode').qrcode(JSON.stringify(payload));
+    $('#json').innerText = JSON.stringify(payload, null, 2);
 
     setTimeout(() => updateQR(), 500);
   });
