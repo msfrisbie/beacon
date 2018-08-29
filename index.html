@@ -23,9 +23,9 @@ function updateQR() {
     payload.datetime = Date().toString();
     payload.location = { lat: position.coords.latitude, lon: position.coords.longitude };
 
-    qrElement.innerHTML = '';
+    qrElement.html('');
     qrElement.qrcode(JSON.stringify(payload));
-    jsonElement.innerText = JSON.stringify(payload, null, 2);
+    jsonElement.text(JSON.stringify(payload, null, 2));
 
     setTimeout(() => updateQR(), 500);
   });
