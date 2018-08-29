@@ -11,7 +11,10 @@
 <pre><code id="json"></code></pre>
 
 <script>
-// Force the prompt
+const qrElement = $('#qrcode');
+const jsonElement = $('#json');
+  
+  // Force the prompt
 navigator.geolocation.getCurrentPosition(() => {});
 
 function updateQR() {
@@ -20,8 +23,9 @@ function updateQR() {
     payload.datetime = Date().toString();
     payload.location = { lat: position.coords.latitude, lon: position.coords.longitude };
 
-    $('#qrcode').qrcode(JSON.stringify(payload));
-    $('#json').innerText = JSON.stringify(payload, null, 2);
+    qrElement.innerHTML = '';
+    qrElement.qrcode(JSON.stringify(payload));
+    jsonElement.innerText = JSON.stringify(payload, null, 2);
 
     setTimeout(() => updateQR(), 500);
   });
