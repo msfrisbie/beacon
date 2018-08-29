@@ -3,12 +3,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- http://jeromeetienne.github.io/jquery-qrcode/ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    
+    <title>Beacon</title>
   </head>
   <body>
     <div id="qrcode"></div>
   
     <script>
-      $('#qrcode').qrcode("this plugin is great");
+      navigator.geolocation.getCurrentPosition();
+      
+      function getCurrentTime() {
+        return Date.now();
+      }
+      
+      window.setInterval(() => {
+        $('#qrcode').qrcode(getCurrentTime());
+      }, 1000);
+      
+      
     </script>
   </body>
 </html>
