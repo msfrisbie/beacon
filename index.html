@@ -10,7 +10,7 @@
     <div id="qrcode"></div>
   
     <script>
-      navigator.geolocation.getCurrentPosition();
+      navigator.geolocation.getCurrentPosition(() => {});
       
       function getCurrentTime() {
         return Date.now();
